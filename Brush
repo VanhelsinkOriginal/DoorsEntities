@@ -6,8 +6,8 @@ local Spawner = loadstring(game:HttpGet("https://raw.githubusercontent.com/Regul
 
 local entity = Spawner:Create({
 	Entity = {
-		Name = "A10",
-		Asset = "https://github.com/eoyoustme/Hardcore/blob/main/A10.rbxm?raw=true",
+		Name = "Brush",
+		Asset = "https://github.com/VanhelsinkOriginal/DoorsEntities/blob/main/Brush.rbxm?raw=true",
 		HeightOffset = 0
 	},
 	Lights = {
@@ -24,11 +24,11 @@ local entity = Spawner:Create({
 	CameraShake = {
 		Enabled = true,
 		Range = 100,
-		Values = {1.5, 20, 0.1, 1} -- Magnitude, Roughness, FadeIn, FadeOut
+		Values = {20, 30, 0.1, 0.1} -- Magnitude, Roughness, FadeIn, FadeOut
 	},
 	Movement = {
-		Speed = 100,
-		Delay = 1.441,
+		Speed = 200,
+		Delay = 0,
 		Reversed = false
 	},
 	Rebounding = {
@@ -41,7 +41,7 @@ local entity = Spawner:Create({
 	Damage = {
 		Enabled = true,
 		Range = 40,
-		Amount = 125
+		Amount = 190
 	},
 	Crucifixion = {
 		Enabled = true,
@@ -51,7 +51,7 @@ local entity = Spawner:Create({
 	},
 	Death = {
 		Type = "Guiding", -- "Curious"
-		Hints = {"Death", "Hints", "Go", "Here"},
+		Hints = {"You died to what everyone calls the Brush", "a strange entity", "Use what you learned in Rush or Blitz (Pressure)"},
 		Cause = ""
 	}
 })
@@ -59,21 +59,22 @@ local entity = Spawner:Create({
 ---====== Debug entity ======---
 
 entity:SetCallback("OnSpawned", function()
-	print("Entity has spawned")
-	local root = game.Workspace.A10.A10New
-	local face = root.FACE
-	local image = face.ImageLabel
-	local pos_x = 0.1
-	local pos_y = 0.1
-	local pos_z = 0.1
-	local rot = 10
 
+	local brush = workspace:WaitForChild("Brush")
+	local root = brush:WaitForChild("RushNew")
 
-	while true do
-		wait()
-		face.ExtentsOffsetWorldSpace = Vector3.new(Random.new():NextNumber(-pos_x,pos_x),Random.new():NextNumber(-pos_y,pos_y),Random.new():NextNumber(-pos_z,pos_z))
-		image.Rotation = math.random(-rot,rot)
+	root.Transparency = 1
+
+	local spawnSound = root:FindFirstChild("Spawn")
+
+	if spawnSound then
+		spawnSound:Play()
 	end
+
+	task.wait(7)
+
+	root.Transparency = 0
+
 end)
 
 entity:SetCallback("OnStartMoving", function()
