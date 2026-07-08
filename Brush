@@ -28,7 +28,7 @@ local entity = Spawner:Create({
 	},
 	Movement = {
 		Speed = 200,
-		Delay = 7,
+		Delay = 0,
 		Reversed = false
 	},
 	Rebounding = {
@@ -221,8 +221,6 @@ end)
 
 ---====== Run entity ======---
 
-entity:Run(true)
-
 local sound = Instance.new("Sound")
 sound.Name = "BrushSpawn"
 sound.SoundId = "rbxassetid://112858474438081"
@@ -231,6 +229,10 @@ sound.Parent = workspace
 
 sound:Play()
 
-sound.Ended:Connect(function()
-	sound:Destroy()
-end)
+sound.Ended:Wait()
+
+sound:Destroy()
+
+task.wait(7)
+
+entity:Run(true)
