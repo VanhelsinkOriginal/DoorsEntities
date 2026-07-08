@@ -106,7 +106,7 @@ entity:SetCallback("OnDamagePlayer", function(newHealth)
 		print("Brush has damaged the player")
 	end
 
-	task.wait(0.2)
+	task.wait(0.1)
 end)
 
 --[[
