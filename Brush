@@ -100,89 +100,13 @@ end)
 
 entity:SetCallback("OnDamagePlayer", function(newHealth)
 
-	if newHealth > 0 then
-		print("Entity has damaged the player")
-		return
+	if newHealth <= 0 then
+		print("Brush has killed the player")
+	else
+		print("Brush has damaged the player")
 	end
 
-	print("Brush has killed the player")
-
-	local Players = game:GetService("Players")
-	local TweenService = game:GetService("TweenService")
-	local RunService = game:GetService("RunService")
-
-	local player = Players.LocalPlayer
-	local playerGui = player:WaitForChild("PlayerGui")
-
-	-- GUI
-	local screenGui = Instance.new("ScreenGui")
-	screenGui.Name = "BrushJumpscare"
-	screenGui.IgnoreGuiInset = true
-	screenGui.ResetOnSpawn = false
-	screenGui.DisplayOrder = 999999
-	screenGui.Parent = playerGui
-
-	-- Синий фон
-	local background = Instance.new("Frame")
-	background.Size = UDim2.fromScale(1,1)
-	background.BackgroundColor3 = Color3.fromRGB(15,45,255)
-	background.BorderSizePixel = 0
-	background.Parent = screenGui
-
-	-- Лицо Brush
-	local image = Instance.new("ImageLabel")
-	image.AnchorPoint = Vector2.new(0.5,0.5)
-	image.Position = UDim2.fromScale(0.5,0.5)
-	image.Size = UDim2.fromOffset(1,1)
-	image.BackgroundTransparency = 1
-	image.Image = "rbxassetid://16869932411"
-	image.Parent = background
-
-	-- Звук
-	local sound = Instance.new("Sound")
-	sound.SoundId = "rbxassetid://10483837590"
-	sound.Volume = 0.34
-	sound.Parent = workspace
-	sound:Play()
-
-	-- Быстрое увеличение
-	local tween = TweenService:Create(
-		image,
-		TweenInfo.new(
-			0.18,
-			Enum.EasingStyle.Quint,
-			Enum.EasingDirection.Out
-		),
-		{
-			Size = UDim2.fromOffset(1700,1700)
-		}
-	)
-
-	tween:Play()
-
-	-- Дрожание
-	local connection
-
-	connection = RunService.RenderStepped:Connect(function()
-
-		image.Position = UDim2.new(
-			0.5,
-			math.random(-18,18),
-			0.5,
-			math.random(-18,18)
-		)
-
-		image.Rotation = math.random(-8,8)
-
-	end)
-
-	task.wait(0.35)
-
-	connection:Disconnect()
-
-	sound:Destroy()
-	screenGui:Destroy()
-
+	task.wait(0.2)
 end)
 
 --[[
