@@ -19,7 +19,7 @@ local entity = Spawner:Create({
 		Repair = false
 	},
 	Earthquake = {
-		Enabled = true
+		Enabled = false
 	},
 	CameraShake = {
 		Enabled = true,
@@ -28,7 +28,7 @@ local entity = Spawner:Create({
 	},
 	Movement = {
 		Speed = 200,
-		Delay = 7,
+		Delay = 0,
 		Reversed = false
 	},
 	Rebounding = {
@@ -128,16 +128,12 @@ sound.SoundId = "rbxassetid://112858474438081"
 sound.Volume = 1
 sound.Parent = workspace
 
--- Сразу спавним BrushHC
-print("1")
-
-entity:Run(true)
-
-print("2")
-
--- И сразу запускаем звук
 sound:Play()
 
-sound.Ended:Connect(function()
-	sound:Destroy()
-end)
+sound.Ended:Wait()
+
+sound:Destroy()
+
+task.wait(2)
+
+entity:Run(true)
