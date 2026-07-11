@@ -129,7 +129,11 @@ sound.Volume = 1
 sound.Parent = workspace
 
 -- Сразу спавним BrushHC
+print("1")
+
 entity:Run(true)
+
+print("2")
 
 -- И сразу запускаем звук
 sound:Play()
