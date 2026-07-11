@@ -6,7 +6,7 @@ local Spawner = loadstring(game:HttpGet("https://raw.githubusercontent.com/Regul
 
 local entity = Spawner:Create({
 	Entity = {
-		Name = "Brush",
+		Name = "BrushHC",
 		Asset = "https://github.com/VanhelsinkOriginal/DoorsEntities/blob/main/BrushHC.rbxm?raw=true",
 		HeightOffset = 0
 	},
@@ -15,7 +15,7 @@ local entity = Spawner:Create({
 			Enabled = false,
 			Duration = 1
 		},
-		Shatter = true,
+		Shatter = false,
 		Repair = false
 	},
 	Earthquake = {
@@ -28,7 +28,7 @@ local entity = Spawner:Create({
 	},
 	Movement = {
 		Speed = 200,
-		Delay = 0,
+		Delay = 7,
 		Reversed = false
 	},
 	Rebounding = {
@@ -128,12 +128,12 @@ sound.SoundId = "rbxassetid://112858474438081"
 sound.Volume = 1
 sound.Parent = workspace
 
+-- Сразу спавним BrushHC
+entity:Run(true)
+
+-- И сразу запускаем звук
 sound:Play()
 
-sound.Ended:Wait()
-
-sound:Destroy()
-
-task.wait(2)
-
-entity:Run(true)
+sound.Ended:Connect(function()
+	sound:Destroy()
+end)
