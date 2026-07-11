@@ -52,7 +52,7 @@ local entity = Spawner:Create({
 	Death = {
 		Type = "Guiding", -- "Curious"
 		Hints = {"You died to what everyone calls the Brush", "a strange entity", "Use what you learned in Rush or Blitz (Pressure)"},
-		Cause = ""
+		Cause = "Brush"
 	}
 })
 
