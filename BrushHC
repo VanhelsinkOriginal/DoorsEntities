@@ -10,25 +10,25 @@ local entity = Spawner:Create({
 		Asset = "https://github.com/VanhelsinkOriginal/DoorsEntities/blob/main/BrushHC.rbxm?raw=true",
 		HeightOffset = 0
 	},
-	Lights = {
+Lights = {
 		Flicker = {
 			Enabled = false,
 			Duration = 1
 		},
-		Shatter = false,
+		Shatter = true,
 		Repair = false
 	},
 	Earthquake = {
-		Enabled = false
+		Enabled = true
 	},
 	CameraShake = {
 		Enabled = true,
 		Range = 100,
-		Values = {20, 30, 0.1, 0.1} -- Magnitude, Roughness, FadeIn, FadeOut
+		Values = {30, 57, 0.1, 0.4} -- Magnitude, Roughness, FadeIn, FadeOut
 	},
 	Movement = {
-		Speed = 200,
-		Delay = 0,
+		Speed = 215,
+		Delay = 6.771,
 		Reversed = false
 	},
 	Rebounding = {
@@ -40,8 +40,8 @@ local entity = Spawner:Create({
 	},
 	Damage = {
 		Enabled = true,
-		Range = 40,
-		Amount = 190
+		Range = 100,
+		Amount = 0.001
 	},
 	Crucifixion = {
 		Enabled = true,
@@ -51,8 +51,8 @@ local entity = Spawner:Create({
 	},
 	Death = {
 		Type = "Guiding", -- "Curious"
-		Hints = {"You died to what everyone calls the Brush", "a strange entity", "Use what you learned in Rush or Blitz (Pressure)"},
-		Cause = ""
+		Hints = {"Death", "Hints", "Go", "Here"},
+		Cause = "Ripper"
 	}
 })
 
