@@ -60,7 +60,14 @@ Lights = {
 
 entity:SetCallback("OnSpawned", function()
 	print("Entity has spawned")
-
+	local sound = Instance.new("Sound")
+	sound.Name = "BrushSpawn"
+	sound.SoundId = "rbxassetid://112858474438081"
+	sound.Volume = 1
+	sound.Parent = workspace
+	sound:Play()
+	sound.Ended:Wait()
+	sound:Destroy()
 	local Reboundcolor = Instance.new("ColorCorrectionEffect",game.Lighting) game.Debris:AddItem(Reboundcolor,24)
 	Reboundcolor.Name = "Warn"
 	Reboundcolor.TintColor = Color3.fromRGB(255, 0, 0) Reboundcolor.Saturation = -0.7 Reboundcolor.Contrast = 0.2
