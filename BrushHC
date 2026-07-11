@@ -60,27 +60,6 @@ local entity = Spawner:Create({
 
 entity:SetCallback("OnSpawned", function()
 	print("Entity has spawned")
-
-  local CameraShaker = require(game.ReplicatedStorage.CameraShaker)
-
-    -- Camera Shake
-  local camera = workspace.CurrentCamera
-
-  local camShake = CameraShaker.new(
-  	Enum.RenderPriority.Camera.Value,
-	  function(shakeCf)
-		  camera.CFrame = camera.CFrame * shakeCf
-	  end
-  )
-
-  camShake:Start()
-
-  -- Очень сильная тряска
-  camShake:ShakeOnce(40, 70, 0, 4, 2, 12)
-
-  -- Постоянное землетрясение
-  camShake:Shake(CameraShaker.Presets.Earthquake)
-
 end)
 
 entity:SetCallback("OnStartMoving", function()
