@@ -28,7 +28,7 @@ local entity = Spawner:Create({
 	},
 	Movement = {
 		Speed = 200,
-		Delay = 7,
+		Delay = 0,
 		Reversed = false
 	},
 	Rebounding = {
@@ -60,14 +60,6 @@ local entity = Spawner:Create({
 
 entity:SetCallback("OnSpawned", function()
 	print("Entity has spawned")
-	local sound = Instance.new("Sound")
-	sound.Name = "BrushSpawn"
-	sound.SoundId = "rbxassetid://112858474438081"
-	sound.Volume = 1
-	sound.Parent = workspace
-	sound:Play()
-	sound.Ended:Wait()
-	sound:Destroy()
 end)
 
 entity:SetCallback("OnStartMoving", function()
@@ -129,5 +121,19 @@ end)
 ]]--
 
 ---====== Run entity ======---
+
+local sound = Instance.new("Sound")
+sound.Name = "BrushSpawn"
+sound.SoundId = "rbxassetid://112858474438081"
+sound.Volume = 1
+sound.Parent = workspace
+
+sound:Play()
+
+sound.Ended:Wait()
+
+sound:Destroy()
+
+task.wait(2)
 
 entity:Run(true)
