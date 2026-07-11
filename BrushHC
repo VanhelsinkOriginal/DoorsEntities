@@ -15,7 +15,7 @@ Lights = {
 			Enabled = false,
 			Duration = 1
 		},
-		Shatter = true,
+		Shatter = false,
 		Repair = false
 	},
 	Earthquake = {
