@@ -40,8 +40,8 @@ Lights = {
 	},
 	Damage = {
 		Enabled = true,
-		Range = 100,
-		Amount = 0.001
+		Range = 40,
+		Amount = 190
 	},
 	Crucifixion = {
 		Enabled = true,
