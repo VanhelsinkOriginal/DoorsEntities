@@ -6,8 +6,8 @@ local Spawner = loadstring(game:HttpGet("https://raw.githubusercontent.com/Regul
 
 local entity = Spawner:Create({
 	Entity = {
-		Name = "BrushHC",
-		Asset = "https://github.com/VanhelsinkOriginal/DoorsEntities/blob/main/BrushHC.rbxm?raw=true",
+		Name = "Brush",
+		Asset = "https://github.com/VanhelsinkOriginal/DoorsEntities/blob/main/Brush.rbxm?raw=true",
 		HeightOffset = 0
 	},
 	Lights = {
@@ -28,7 +28,7 @@ local entity = Spawner:Create({
 	},
 	Movement = {
 		Speed = 200,
-		Delay = 7,
+		Delay = 0,
 		Reversed = false
 	},
 	Rebounding = {
