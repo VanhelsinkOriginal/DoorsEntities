@@ -6,11 +6,11 @@ local Spawner = loadstring(game:HttpGet("https://raw.githubusercontent.com/Regul
 
 local entity = Spawner:Create({
 	Entity = {
-		Name = "BrushHC",
-		Asset = "https://github.com/VanhelsinkOriginal/DoorsEntities/blob/main/BrushHC.rbxm?raw=true",
+		Name = "Brush",
+		Asset = "https://github.com/VanhelsinkOriginal/DoorsEntities/blob/main/Brush.rbxm?raw=true",
 		HeightOffset = 0
 	},
-Lights = {
+	Lights = {
 		Flicker = {
 			Enabled = false,
 			Duration = 1
@@ -19,7 +19,7 @@ Lights = {
 		Repair = false
 	},
 	Earthquake = {
-		Enabled = true
+		Enabled = false
 	},
 	CameraShake = {
 		Enabled = true,
@@ -84,9 +84,9 @@ end)
 
 entity:SetCallback("OnLookAt", function(lineOfSight: boolean)
 	if lineOfSight == true then
-		print("Player is looking at entity")
+		print("")
 	else
-		print("Player view is obstructed by something")
+		print("")
 	end
 end)
 
