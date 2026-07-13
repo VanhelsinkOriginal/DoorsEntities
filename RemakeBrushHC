@@ -1,0 +1,202 @@
+---====== Load spawner ======---
+
+local Spawner = loadstring(game:HttpGet("https://raw.githubusercontent.com/RegularVynixu/DOORS-Entity-Spawner-V2/main/init.luau"))()
+
+---====== Create entity ======---
+
+local entity = Spawner:Create({
+	Entity = {
+		Name = "RemakeBrushHC",
+		Asset = "https://github.com/VanhelsinkOriginal/DoorsEntities/blob/main/RemakeBrushHC.rbxm?raw=true",
+		HeightOffset = 0
+	},
+	Lights = {
+		Flicker = {
+			Enabled = false,
+			Duration = 1
+		},
+		Shatter = false,
+		Repair = false
+	},
+	Earthquake = {
+		Enabled = true
+	},
+	CameraShake = {
+		Enabled = true,
+		Range = 100,
+		Values = {20, 30, 0.1, 0.1} -- Magnitude, Roughness, FadeIn, FadeOut
+	},
+	Movement = {
+		Speed = 200,
+		Delay = 7,
+		Reversed = false
+	},
+	Rebounding = {
+		Enabled = false,
+		Type = "Ambush", -- "Blitz"
+		Min = 1,
+		Max = 1,
+		Delay = 2
+	},
+	Damage = {
+		Enabled = true,
+		Range = 40,
+		Amount = 190
+	},
+	Crucifixion = {
+		Enabled = true,
+		Range = 40,
+		Resist = false,
+		Break = true
+	},
+	Death = {
+		Type = "Guiding", -- "Curious"
+		Hints = {"You died to what everyone calls the Brush", "a strange entity", "Use what you learned in Rush or Blitz (Pressure)"},
+		Cause = "Brush"
+	}
+})
+
+---====== Debug entity ======---
+
+entity:SetCallback("OnSpawned", function()
+  
+local TweenService = game:GetService("TweenService")
+
+local color = Color3.fromRGB(0, 0, 255)
+
+local tweenInfo = TweenInfo.new(
+	0.5,
+	Enum.EasingStyle.Sine,
+	Enum.EasingDirection.Out
+)
+
+for _, room in ipairs(workspace.CurrentRooms:GetChildren()) do
+
+	local assets = room:FindFirstChild("Assets")
+	if not assets then
+		continue
+	end
+
+	-- LightStand, LightStand1...LightStand9
+	for i = 0, 9 do
+		local standName = (i == 0) and "LightStand" or ("LightStand" .. i)
+		local stand = assets:FindFirstChild(standName)
+
+		if stand and stand:FindFirstChild("LightFixture") then
+			local fixture = stand.LightFixture
+
+			local objects = {
+				fixture:FindFirstChild("PointLight"),
+				fixture:FindFirstChild("Neon"),
+				fixture.Neon and fixture.Neon.CenterAttach:FindFirstChild("PointLight1"),
+				fixture.Neon and fixture.Neon.CenterAttach:FindFirstChild("SpotLight")
+			}
+
+			for _, obj in ipairs(objects) do
+				if obj then
+					TweenService:Create(obj, tweenInfo, {
+						Color = color
+					}):Play()
+				end
+			end
+		end
+	end
+
+	-- Chandelier
+	local chandelier = assets:FindFirstChild("Chandelier")
+
+	if chandelier and chandelier:FindFirstChild("LightFixture") then
+		local fixture = chandelier.LightFixture
+
+		local objects = {
+			fixture:FindFirstChild("PointLight"),
+			fixture:FindFirstChild("SpotLight"),
+			fixture:FindFirstChild("Neon")
+		}
+
+		for _, obj in ipairs(objects) do
+			if obj then
+				TweenService:Create(obj, tweenInfo, {
+					Color = color
+				}):Play()
+			end
+		end
+	end
+
+end
+                   
+	print("Entity has spawned")
+local sound = Instance.new("Sound")
+sound.Name = "BrushSpawn"
+sound.SoundId = "rbxassetid://112858474438081"
+sound.Volume = 1
+sound.Parent = workspace
+
+sound:Play()
+
+sound.Ended:Wait()
+
+sound:Destroy()
+end)
+
+entity:SetCallback("OnStartMoving", function()
+	print("Entity has started moving")
+end)
+
+entity:SetCallback("OnEnterRoom", function(room: Model, firstTime: boolean)
+	if firstTime == true then
+		print("Entity has entered room: ".. room.Name.. " for the first time")
+	else
+		print("Entity has entered room: ".. room.Name.. " again")
+	end
+end)
+
+entity:SetCallback("OnLookAt", function(lineOfSight: boolean)
+	if lineOfSight == true then
+		print("")
+	else
+		print("")
+	end
+end)
+
+entity:SetCallback("OnRebounding", function(startOfRebound: boolean)
+	if startOfRebound == true then
+		print("Entity has started rebounding")
+	else
+		print("Entity has finished rebounding")
+	end
+end)
+
+entity:SetCallback("OnDespawning", function()
+	print("Entity is despawning")
+end)
+
+entity:SetCallback("OnDespawned", function()
+	print("Entity has despawned")
+end)
+
+entity:SetCallback("OnDamagePlayer", function(newHealth)
+
+	if newHealth <= 0 then
+		print("Brush has killed the player")
+	else
+		print("Brush has damaged the player")
+	end
+
+	task.wait(0.1)
+end)
+
+--[[
+
+DEVELOPER NOTE:
+By overwriting 'CrucifixionOverwrite' the default crucifixion callback will be replaced with your custom callback.
+
+entity:SetCallback("CrucifixionOverwrite", function()
+    print("Custom crucifixion callback")
+end)
+
+]]--
+
+---====== Run entity ======---
+
+entity:Run(true)
