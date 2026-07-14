@@ -1,3 +1,22 @@
+game.ReplicatedStorage.GameData.LatestRoom.Changed:Wait()
+
+function light(tim,color0,color1)
+	local tweenservice = game:GetService("TweenService")
+	local info = TweenInfo.new(tim,Enum.EasingStyle.Linear)
+	for _ , light in pairs(game.Workspace.CurrentRooms:GetDescendants()) do
+		if light:IsA("Light") or light:IsA("SurfaceLight") or light:IsA("SpotLight") then
+			local target = {Color = color1}
+			local anim = tweenservice:Create(light,info,target)
+			anim:Play()
+		end
+		if light:IsA("MeshPart") and light.Material == Enum.Material.Neon  and light.Name ~= "Skybox" then
+			local target1 = {Color = color0}
+			local anim2 = tweenservice:Create(light,info,target1)
+			anim2:Play()
+		end
+	end
+end
+
 ---====== Load spawner ======---
 
 local Spawner = loadstring(game:HttpGet("https://raw.githubusercontent.com/RegularVynixu/DOORS-Entity-Spawner-V2/main/init.luau"))()
@@ -59,73 +78,11 @@ local entity = Spawner:Create({
 ---====== Debug entity ======---
 
 entity:SetCallback("OnSpawned", function()
-  
-local TweenService = game:GetService("TweenService")
-
-local color = Color3.fromRGB(0, 0, 255)
-
-local tweenInfo = TweenInfo.new(
-	0.5,
-	Enum.EasingStyle.Sine,
-	Enum.EasingDirection.Out
-)
-
-for _, room in ipairs(workspace.CurrentRooms:GetChildren()) do
-
-	local assets = room:FindFirstChild("Assets")
-	if not assets then
-		continue
-	end
-
-	-- LightStand, LightStand1...LightStand9
-	for i = 0, 9 do
-		local standName = (i == 0) and "LightStand" or ("LightStand" .. i)
-		local stand = assets:FindFirstChild(standName)
-
-		if stand and stand:FindFirstChild("LightFixture") then
-			local fixture = stand.LightFixture
-
-			local objects = {
-				fixture:FindFirstChild("PointLight"),
-				fixture:FindFirstChild("Neon"),
-				fixture.Neon and fixture.Neon.CenterAttach:FindFirstChild("PointLight1"),
-				fixture.Neon and fixture.Neon.CenterAttach:FindFirstChild("SpotLight")
-			}
-
-			for _, obj in ipairs(objects) do
-				if obj then
-					TweenService:Create(obj, tweenInfo, {
-						Color = color
-					}):Play()
-				end
-			end
-		end
-	end
-
-	-- Chandelier
-	local chandelier = assets:FindFirstChild("Chandelier")
-
-	if chandelier and chandelier:FindFirstChild("LightFixture") then
-		local fixture = chandelier.LightFixture
-
-		local objects = {
-			fixture:FindFirstChild("PointLight"),
-			fixture:FindFirstChild("SpotLight"),
-			fixture:FindFirstChild("Neon")
-		}
-
-		for _, obj in ipairs(objects) do
-			if obj then
-				TweenService:Create(obj, tweenInfo, {
-					Color = color
-				}):Play()
-			end
-		end
-	end
-
-end
                    
 	print("Entity has spawned")
+
+light(2,Color3.fromRGB(0, 0, 255),Color3.fromRGB(0, 45, 185))
+
 local sound = Instance.new("Sound")
 sound.Name = "BrushSpawn"
 sound.SoundId = "rbxassetid://112858474438081"
